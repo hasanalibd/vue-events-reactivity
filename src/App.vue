@@ -30,7 +30,7 @@ function toggle(index)
   <section class="container mx-auto flex items-center flex-col">
         <h1 class="text-center fs-2 py-10">Simple Vue Js Project</h1>
         <p class="p-5">{{ message }}</p>
-        <div class="flex justify-between space-x-6">
+        <div class="flex justify-between items-center space-x-6">
             <div class="p-10 border w-96 flex flex-col space-y-5">
                 <button @click="toggle(0)" :class="lights[0].onAndOff?'bg-blue-500':'bg-gray-500'" class="text-white font-bold py-2 px-4 rounded">
                     Light 1 {{ lights[0].onAndOff?'On':'Off'  }}
@@ -42,7 +42,7 @@ function toggle(index)
                     Light 3 {{ lights[2].onAndOff?'On':'Off' }}
                 </button>
             </div>
-            <div class="p-10 border w-96 flex flex-col space-y-5">
+            <div class="p-10 border w-96 flex flex-col space-y-2">
                 <img class="w-20" :src="lights[0].onAndOff?lighON:lighOFF">
                 <img class="w-20" :src="lights[1].onAndOff?lighON:lighOFF">
                 <img class="w-20" :src="lights[2].onAndOff?lighON:lighOFF">
