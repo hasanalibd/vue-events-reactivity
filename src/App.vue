@@ -1,63 +1,54 @@
 <script setup>
-import { ref } from "vue"
-const message = ref("Hello Vue 3")
+import { ref, reactive } from 'vue';
 
-const space = ref(0)
+const lights = reactive([
+  {
+    onAndOff:true,
+  },
+  {
+    onAndOff:true,
+  },
+  {
+    onAndOff:true,
+  }
+])
 
-function spacePressed(){
-  space.value++
-  message.value = "Space pressed " + space.value + " times"
+
+const message = ref("Make These Buttons Work");
+const lighON  = "//img.icons8.com/?size=512&id=12244&format=png";
+const lighOFF = "//img.icons8.com/?size=512&id=75&format=png";
+
+function toggle(index)
+{
+  lights[index].onAndOff = !lights[index].onAndOff;
+  message.value   = lights[index].onAndOff?`Light ${index+1} is On`:`Light ${index+1} is Off`;
 }
 
-function pressedWhat(event){
-  message.value = "You pressed " + event.key 
-}
-
-function buttonPressed(){
-  message.value = "You clicked the button"
-}
-
-function ctrlRightClicked(){
-  message.value = "Ctrl+Right Click"
-}
-
-function divClicked(){
-  alert("Div Clicked")
-}
-function buttonClicked(){
-  alert("Button Clicked")
-}
 </script>
 
 <template>
   <section class="container mx-auto flex items-center flex-col">
-    <h1 class="text-center text-2xl py-10">Events & Reactivity in Vue.js</h1>
-    <h2 class="mt-10">{{ message }}</h2>
-    <form @submit.prevent action="https://google.com/search">
-      <div class="container mx-auto flex space-x-5 justify-center m-5">
-        <input @keyup.space="spacePressed()" name="q" type="text"  class="border border-gray-500 bg-white p-5"  placeholder="Press Space">
-      </div>
-      
-      <div class="container mx-auto flex space-x-5 justify-center m-5">
-        <input @keyup="pressedWhat($event)" name="text" type="text" class="border border-gray-500 bg-white p-5"  placeholder="Type Something">
-      </div>
-
-      <button @click.prevent="buttonPressed()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
-        Button
-      </button>
-
-      <button @click.ctrl="ctrlRightClicked()" class="bg-blue-500 ml-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
-        Ctrl + Right Click
-      </button>
-
-    </form>
-
-    <div @click="divClicked()" class="bg-gray-200 w-[500px] h-80 mt-5 flex items-center justify-center"  >
-      <button @click.stop="buttonClicked()" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"  >
-        Button
-      </button>
-    </div>
-  </section>
+        <h1 class="text-center fs-2 py-10">Simple Vue Js Project</h1>
+        <p class="p-5">{{ message }}</p>
+        <div class="flex justify-between space-x-6">
+            <div class="p-10 border w-96 flex flex-col space-y-5">
+                <button @click="toggle(0)" :class="lights[0].onAndOff?'bg-blue-500':'bg-gray-500'" class="text-white font-bold py-2 px-4 rounded">
+                    Light 1 {{ lights[0].onAndOff?'On':'Off'  }}
+                </button>
+                <button @click="toggle(1)" :class="lights[1].onAndOff?'bg-blue-500':'bg-gray-500'" class="text-white font-bold py-2 px-4 rounded">
+                    Light 2 {{ lights[1].onAndOff?'On':'Off' }}
+                </button>
+                <button @click="toggle(2)" :class="lights[2].onAndOff?'bg-blue-500':'bg-gray-500'" class="text-white font-bold py-2 px-4 rounded">
+                    Light 3 {{ lights[2].onAndOff?'On':'Off' }}
+                </button>
+            </div>
+            <div class="p-10 border w-96 flex flex-col space-y-5">
+                <img class="w-20" :src="lights[0].onAndOff?lighON:lighOFF">
+                <img class="w-20" :src="lights[1].onAndOff?lighON:lighOFF">
+                <img class="w-20" :src="lights[2].onAndOff?lighON:lighOFF">
+            </div>
+        </div>
+    </section>
 </template>
 
 <style scoped></style>
